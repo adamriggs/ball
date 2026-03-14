@@ -1,3 +1,4 @@
+const LimitChunkCountPlugin = require('webpack/lib/optimize/LimitChunkCountPlugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const path = require('path');
 
@@ -35,6 +36,9 @@ module.exports = {
   plugins: [
     new MiniCssExtractPlugin({
       filename: '[name].css',
-    }),
+	}),
+	new LimitChunkCountPlugin({
+		maxChunks: 1, // Set to 1 to disable code splitting into multiple files
+	}),
   ],
 };

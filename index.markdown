@@ -5,7 +5,3 @@
 layout: js
 title: Viewport
 ---
-hello
-hello again
-
-hello in a new paragraph
