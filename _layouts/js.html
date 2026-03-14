@@ -1,0 +1,22 @@
+---
+layout: default <!-- You can optionally chain this to a default layout for consistent headers/footers -->
+---
+<html>
+
+<head>
+	<title>{{ page.title }}</title>
+	<!-- Include the Three.js library from a CDN or local file -->
+	<link rel="stylesheet" href="{{ site.baseurl }}/assets/styles.css">
+	<script src="{{ site.baseurl }}/assets/main.js" defer></script>
+</head>
+
+<body>
+
+	<!-- This is where your page content goes -->
+	<div id="content" class="content">
+		{{ content }}
+	</div>
+
+</body>
+
+</html>
