@@ -1,4 +1,5 @@
 import * as PIXI from 'pixi.js';
+import Stats from 'stats.js';
 
 const app = new PIXI.Application();
 const contentElem = document.getElementById('content');
@@ -16,6 +17,10 @@ let floor = window.innerHeight - ballRadius;
 let cieling = ballRadius;
 let gravity = 9.81;
 let prevTime = 0;
+
+var stats = new Stats();
+stats.showPanel(0); // 0: fps, 1: ms, 2: mb, 3+: custom
+document.body.appendChild(stats.dom);
 
 const initApp = async() => {
 	await app.init({
@@ -44,7 +49,7 @@ const resetBall = () => {
 }
 
 const animate = (timestamp) => {
-
+	stats.begin();
 	if (!prevTime) {
 		prevTime = timestamp;
 	}
@@ -64,7 +69,7 @@ const animate = (timestamp) => {
 		ball.y = cieling;
 		ballYVelocity *= -1;
 	}
-
+	stats.end();
 	requestAnimationFrame(animate);
 }
 
