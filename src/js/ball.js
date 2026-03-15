@@ -14,10 +14,8 @@ let ballYVelocity = 0;
 
 let floor = window.innerHeight - ballRadius;
 let cieling = ballRadius;
-let gravity = 9.81 / 100;
-
+let gravity = 9.81;
 let prevTime = 0;
-let reverse = false;
 
 const initApp = async() => {
 	await app.init({
@@ -32,11 +30,17 @@ const initApp = async() => {
 
 const initBall = () => {
 	ball.circle(0, 0, ballRadius);
+	app.stage.addChild(ball);
+	resetBall();
+}
+
+const resetBall = () => {
 	ball.fill(ballColor);
 	ball.x = ballXStart;
 	ball.y = ballYStart;
 
-	app.stage.addChild(ball);
+	ballXVelocity = 0;
+	ballYVelocity = 0;
 }
 
 const animate = (timestamp) => {
@@ -47,19 +51,17 @@ const animate = (timestamp) => {
 	const deltaTime = timestamp - prevTime;
 	prevTime = timestamp;
 
-	ballYVelocity += gravity * deltaTime;
+	ballYVelocity += gravity * deltaTime / 100;
 	ball.y += ballYVelocity;
 
 	if (ball.y >= floor) {
 		ball.y = floor;
-		reverse = true;
 		ballYVelocity -= 1;
 		ballYVelocity *= -1;
 	}
 
 	if (ball.y <= cieling) {
 		ball.y = cieling;
-		reverse = false;
 		ballYVelocity *= -1;
 	}
 
@@ -81,4 +83,8 @@ window.addEventListener('load', () => {
 
 window.addEventListener('resize', () => {
 	updatePositions();
+});
+
+window.addEventListener('click', () => {
+	resetBall();
 });
