@@ -5,14 +5,16 @@ const contentElem = document.getElementById('content');
 const backgroundColor = 0xABDADC;
 const ballColor = 0xFF4400;
 
-let floor = window.innerHeight - 50;
-let cieling = 50;
-let speed = 10;
-
 const ball = new PIXI.Graphics();
 const ballRadius = 50;
 const ballXStart = (window.innerWidth / 2) - (ballRadius / 2);
 const ballYStart = 0;
+let ballXVelocity = 0;
+let ballYVelocity = 0;
+
+let floor = window.innerHeight - ballRadius;
+let cieling = ballRadius;
+let gravity = 9.81 / 100;
 
 let prevTime = 0;
 let reverse = false;
@@ -45,18 +47,20 @@ const animate = (timestamp) => {
 	const deltaTime = timestamp - prevTime;
 	prevTime = timestamp;
 
-	if (reverse) {
-		ball.y -= speed;
-	} else {
-		ball.y += speed;
-	}
+	ballYVelocity += gravity * deltaTime;
+	ball.y += ballYVelocity;
 
 	if (ball.y >= floor) {
+		ball.y = floor;
 		reverse = true;
+		ballYVelocity -= 1;
+		ballYVelocity *= -1;
 	}
 
 	if (ball.y <= cieling) {
+		ball.y = cieling;
 		reverse = false;
+		ballYVelocity *= -1;
 	}
 
 	requestAnimationFrame(animate);
