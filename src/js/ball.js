@@ -1,28 +1,30 @@
 import * as PIXI from 'pixi.js';
 
-// async const Ball = () => {
-
-// 	// this.app = new PIXI.Application();
-// 	// this.app.init({
-// 	// 	background: 0xffffff,
-// 	// 	resizeTo: window,
-// 	// });
-// };
-
 const app = new PIXI.Application();
-await app.init({
-	width: '100vw',
-	height: '100vh',
-	backgroundColor: 0x1099bb, // Hex color code
-	resizeTo: window, // Optional: automatically resize to the window
-});
-
+const ball = new PIXI.Graphics();
 const contentElem = document.getElementById('content');
 
-contentElem.appendChild(app.canvas);
+const initApp = async() => {
+	await app.init({
+		width: '100vw',
+		height: '100vh',
+		backgroundColor: 0x1A05A2,
+		resizeTo: window,
+	});
+
+	contentElem.appendChild(app.canvas);
+}
+
+const initBall = () => {
+	ball.circle(0, 0, 50);
+	ball.fill(0xFF4400);
+	ball.x = 100;
+	ball.y = 100;
+
+	app.stage.addChild(ball);
+}
 
 window.addEventListener('load', () => {
-	// const game = new Game();
-
-	
+	initApp();
+	initBall();
 });
