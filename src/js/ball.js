@@ -104,7 +104,6 @@ const handleClick = (event) => {
 	const radians = Math.atan2(distanceX, distanceY);
 
 	if (distance > maxVelocity) { distance = maxVelocity; }
-
 	const accelerationX = Math.sin(radians) * distance > maxVelocity ? maxVelocity : Math.sin(radians) * distance;
 	const accelerationY = Math.cos(radians) * distance > maxVelocity ? maxVelocity : Math.cos(radians) * distance;
 
@@ -128,6 +127,5 @@ window.addEventListener('resize', () => {
 	updatePositions();
 });
 
-window.addEventListener('click', (event) => {
-	handleClick(event);
-});
+window.addEventListener('click', handleClick, false);
+window.addEventListener('touchend', handleClick, false);
