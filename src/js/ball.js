@@ -3,12 +3,14 @@ import * as PIXI from 'pixi.js';
 const app = new PIXI.Application();
 const ball = new PIXI.Graphics();
 const contentElem = document.getElementById('content');
+const backgroundColor = 0xABDADC;
+const ballColor = 0xFF4400;
 
 const initApp = async() => {
 	await app.init({
 		width: '100vw',
 		height: '100vh',
-		backgroundColor: 0x1A05A2,
+		backgroundColor: backgroundColor,
 		resizeTo: window,
 	});
 
@@ -17,7 +19,7 @@ const initApp = async() => {
 
 const initBall = () => {
 	ball.circle(0, 0, 50);
-	ball.fill(0xFF4400);
+	ball.fill(ballColor);
 	ball.x = 100;
 	ball.y = 100;
 
