@@ -98,8 +98,16 @@ const animate = (timestamp) => {
 }
 
 const handleClick = (event) => {
-	const distanceX = event.x - ball.x;
-	const distanceY = event.y - ball.y;
+	let eventX, eventY;
+	if (event.touches) {
+		eventX = event.touches[0].clientX;
+		eventY = event.touches[0].clientY;
+	} else {
+		eventX = event.clientX;
+		eventY = event.clientY;
+	}
+	const distanceX = eventX - ball.x;
+	const distanceY = eventY - ball.y;
 	let distance = Math.sqrt(Math.pow(distanceX, 2) + Math.pow(distanceY, 2));
 	const radians = Math.atan2(distanceX, distanceY);
 
@@ -128,4 +136,4 @@ window.addEventListener('resize', () => {
 });
 
 window.addEventListener('click', handleClick, false);
-window.addEventListener('touchend', handleClick, false);
+document.addEventListener('touchstart', handleClick, false);

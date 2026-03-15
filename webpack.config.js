@@ -10,7 +10,11 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, 'assets'), // Output to Jekyll's assets folder
     filename: '[name].js',
-  },
+	},
+devtool: [
+	{ type: "javascript", use: "source-map" },
+	{ type: "css", use: "inline-source-map" },
+],
   module: {
     rules: [
       {
