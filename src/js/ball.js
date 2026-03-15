@@ -1,7 +1,6 @@
 import * as PIXI from 'pixi.js';
 
 const app = new PIXI.Application();
-const ball = new PIXI.Graphics();
 const contentElem = document.getElementById('content');
 const backgroundColor = 0xABDADC;
 const ballColor = 0xFF4400;
@@ -9,6 +8,11 @@ const ballColor = 0xFF4400;
 let floor = window.innerHeight - 50;
 let cieling = 50;
 let speed = 10;
+
+const ball = new PIXI.Graphics();
+const ballRadius = 50;
+const ballXStart = (window.innerWidth / 2) - (ballRadius / 2);
+const ballYStart = 0;
 
 let prevTime = 0;
 let reverse = false;
@@ -25,10 +29,10 @@ const initApp = async() => {
 }
 
 const initBall = () => {
-	ball.circle(0, 0, 50);
+	ball.circle(0, 0, ballRadius);
 	ball.fill(ballColor);
-	ball.x = 100;
-	ball.y = 100;
+	ball.x = ballXStart;
+	ball.y = ballYStart;
 
 	app.stage.addChild(ball);
 }
@@ -58,9 +62,19 @@ const animate = (timestamp) => {
 	requestAnimationFrame(animate);
 }
 
+const updatePositions = () => {
+	ball.x = (window.innerWidth / 2) - (ballRadius / 2);
+
+	floor = window.innerHeight - 50;
+}
+
 window.addEventListener('load', () => {
 	initApp();
 	initBall();
 
 	requestAnimationFrame(animate);
+});
+
+window.addEventListener('resize', () => {
+	updatePositions();
 });
